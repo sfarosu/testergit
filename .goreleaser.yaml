@@ -11,7 +11,7 @@ before:
 
 builds:
   - id: release-build
-    binary: {{ .ProjectName }}
+    binary: testergit
     env:
       - CGO_ENABLED=0
     goos:
@@ -48,7 +48,7 @@ release:
     - release-archive
   github:
     owner: sfarosu
-    name: {{ .ProjectName }}
+    name: testergit
 
 # If running on Debian, make sure `qemu-user-static` package is installed; needed by docker to build against arm64 arch
 dockers:
