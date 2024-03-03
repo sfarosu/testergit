@@ -97,6 +97,12 @@ bumpversion:
 gitpushtags:
 	@echo "#################################"
 	@echo "###### Running gitpushtags ######"
+	@if ! git push origin $(DEFAULT_GIT_BRANCH) --follow-tags --porcelain; then \
+		echo "Git push tags failed"; \
+		exit 1; \
+	else \
+		echo "Git push tags successful"; \
+	fi
 
 goreleaser:
 	@echo "################################"
