@@ -52,9 +52,9 @@ release:
     name: testergit
 
 dockers:
-  goos: linux
-  goarch: amd64
-  dockerfile: Dockerfile
-  use: docker
-  - image_templates:
+  - dockerfile: Dockerfile
+    goos: linux
+    goarch: amd64
+    use: docker
+    image_templates:
       - "docker.io/sfarosu/testergit:{{ .Tag }}"
