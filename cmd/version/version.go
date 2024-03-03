@@ -1,5 +1,5 @@
 package version
 
-var Version string = "0.2.18"
+var Version string = "0.2.19"
 var BuildDate string
 var GitShortHash string
