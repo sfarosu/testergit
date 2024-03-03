@@ -50,6 +50,7 @@ release:
     owner: sfarosu
     name: testergit
 
+# If running on Debian, make sure `qemu-user-static` package is installed; needed by docker to build against arm64 arch
 dockers:
   - dockerfile: Dockerfile-Goreleaser
     use: buildx
@@ -68,25 +69,25 @@ dockers:
     extra_files:
       - scripts
 
-  # - dockerfile: Dockerfile-Goreleaser
-  #   use: buildx
-  #   goos: linux
-  #   goarch: arm64
-  #   image_templates:
-  #     - "docker.io/sfarosu/testergit:latest-arm64"
-  #     - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
-  #   build_flag_templates:
-  #     - "--pull"
-  #     - "--platform=linux/arm64"
-  #     - "--label=org.opencontainers.image.created={{.Date}}"
-  #     - "--label=org.opencontainers.image.title={{.ProjectName}}"
-  #     - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-  #     - "--label=org.opencontainers.image.version={{.Tag}}"
-  #   extra_files:
-  #     - scripts
+  - dockerfile: Dockerfile-Goreleaser
+    use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "docker.io/sfarosu/testergit:latest-arm64"
+      - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Tag}}"
+    extra_files:
+      - scripts
 
-# docker_manifests:
-# - name_template: "docker.io/sfarosu/testergit:{{ .Tag }}"
-#   image_templates:
-#   - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
-#   - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
+docker_manifests:
+- name_template: "docker.io/sfarosu/testergit:{{ .Tag }}"
+  image_templates:
+  - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
+  - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
