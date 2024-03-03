@@ -51,22 +51,22 @@ release:
     name: testergit
 
 dockers:
-  - dockerfile: Dockerfile-Goreleaser
-    use: buildx
-    goos: linux
-    goarch: amd64
-    image_templates:
-      - "docker.io/sfarosu/testergit:latest-amd64"
-      - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
-    build_flag_templates:
-      - "--pull"
-      - "--platform=linux/amd64"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-    extra_files:
-      - scripts
+  # - dockerfile: Dockerfile-Goreleaser
+  #   use: buildx
+  #   goos: linux
+  #   goarch: amd64
+  #   image_templates:
+  #     - "docker.io/sfarosu/testergit:latest-amd64"
+  #     - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
+  #   build_flag_templates:
+  #     - "--pull"
+  #     - "--platform=linux/amd64"
+  #     - "--label=org.opencontainers.image.created={{.Date}}"
+  #     - "--label=org.opencontainers.image.title={{.ProjectName}}"
+  #     - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  #     - "--label=org.opencontainers.image.version={{.Tag}}"
+  #   extra_files:
+  #     - scripts
 
   - dockerfile: Dockerfile-Goreleaser
     use: buildx
@@ -81,12 +81,12 @@ dockers:
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.version={{.Tag}}"
     extra_files:
       - scripts
 
-docker_manifests:
-- name_template: "docker.io/sfarosu/testergit:{{ .Version }}"
-  image_templates:
-  - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
-  - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
+# docker_manifests:
+# - name_template: "docker.io/sfarosu/testergit:{{ .Tag }}"
+#   image_templates:
+#   - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
+#   - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64"
