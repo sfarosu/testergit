@@ -1,6 +1,6 @@
 FROM alpine:3.19
 COPY testergit /app/
-COPY ./scripts/ ./scripts
+COPY ./scripts/ ./app/scripts
 
 RUN chown -R 10001:root /app && \
     chgrp -R 0 /app && \
