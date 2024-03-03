@@ -59,10 +59,34 @@ dockers:
       - "docker.io/sfarosu/testergit:latest"
       - "docker.io/sfarosu/testergit:{{ .Tag }}"
     build_flag_templates:
+      - "--pull"
+      - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--platform=linux/amd64"
     extra_files:
       - scripts
+
+  - dockerfile: Dockerfile-Goreleaser
+    use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "docker.io/sfarosu/testergit:latest"
+      - "docker.io/sfarosu/testergit:{{ .Tag }}"
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    extra_files:
+      - scripts
+
+docker_manifests:
+- name_template: "docker.io/sfarosu/testergit:{{ .Version }}"
+  image_templates:
+  - "docker.io/sfarosu/testergit:{{ .Version }}"
+  - "docker.io/sfarosu/testergit:{{ .Version }}"
