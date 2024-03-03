@@ -81,12 +81,6 @@ tests:
 bumpversion:
 	@echo "################################"
 	@echo "##### Running bumpversion #####"
-	@if [ -n "$$BUMP_LEVEL" ]; then \
-		echo "Using bump level: $$BUMP_LEVEL"; \
-	else \
-		echo "Using default bump level: $(BUMP_LEVEL)"; \
-	fi; \
-
 	@if ! bumpversion $(BUMP_LEVEL); then \
 		echo "Bump version failed"; \
 		exit 1; \
