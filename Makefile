@@ -10,7 +10,7 @@ prechecks:
 	@echo "##### Running prechecks #####"
 
 	@for tool in $(TOOLS); do \
-    	if ! command -v $$tool >/dev/null 2>&1; then \
+		if ! command -v $$tool >/dev/null 2>&1; then \
 			echo "Verify if [$$tool] is installed ... ERROR, not installed or not in PATH"; \
 			exit 1; \
 		else \
@@ -86,7 +86,8 @@ bumpversion:
 	else \
 		echo "Using default bump level: $(BUMP_LEVEL)"; \
 	fi; \
-    @if ! bumpversion $(BUMP_LEVEL); then \
+	
+	@if ! bumpversion $(BUMP_LEVEL); then \
 		echo "Bump version failed"; \
 		exit 1; \
 	else \
