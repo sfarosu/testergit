@@ -50,3 +50,11 @@ release:
   github:
     owner: sfarosu
     name: testergit
+
+dockers:
+  goos: linux
+  goarch: amd64
+  dockerfile: Dockerfile
+  use: docker
+  - image_templates:
+      - "docker.io/sfarosu/testergit:{{ .Tag }}"
