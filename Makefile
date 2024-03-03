@@ -1,4 +1,4 @@
-.PHONY: prechecks tests bump2version gitpushtags goreleaser help
+.PHONY: prechecks tests bumpversion gitpushtags goreleaser help
 
 BUMP_LEVEL := minor
 TOOLS := make git docker bumpversion go goreleaser
@@ -108,14 +108,14 @@ goreleaser:
 		echo "goreleaser release successful"; \
 	fi
 
-all: prechecks tests bump2version gitpushtags goreleaser
+all: prechecks tests bumpversion gitpushtags goreleaser
 
 help:
 	@echo "Available targets:"
 	@echo "  prechecks:       run a set of verifications before doing anything"
 	@echo "  tests:           run a set of unit tests"
-	@echo "  bump2version:    increment the program version"
-	@echo "  gitpushtags:     publish the commit and tags created by bump2version"
+	@echo "  bumpversion:     increment the program version"
+	@echo "  gitpushtags:     publish the commit and tags created by bumpversion"
 	@echo "  goreleaser:      create a GitHub release"
 	@echo "  all:             run all targets"
 
