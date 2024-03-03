@@ -54,7 +54,7 @@ prechecks:
 		echo "Verify docker login ... docker login successful"; \
 	fi
 	
-	@if [ $$(git rev-parse --abbrev-ref HEAD) != "master" ]; then \
+	@if [ $$(git rev-parse --abbrev-ref HEAD) != $(DEFAULT_GIT_BRANCH) ]; then \
 		echo "Verify current branch ... ERROR, not on default branch [$(DEFAULT_GIT_BRANCH)]"; \
 		exit 1; \
 	else \
@@ -86,7 +86,7 @@ bumpversion:
 	else \
 		echo "Using default bump level: $(BUMP_LEVEL)"; \
 	fi; \
-	
+
 	@if ! bumpversion $(BUMP_LEVEL); then \
 		echo "Bump version failed"; \
 		exit 1; \
