@@ -11,7 +11,7 @@ before:
 
 builds:
   - id: release-build
-    binary: testergit
+    binary: {{ .ProjectName }}
     env:
       - CGO_ENABLED=0
     goos:
@@ -21,8 +21,8 @@ builds:
       - amd64
       - arm64
     ldflags:
-      - -X 'github.com/sfarosu/testergit/cmd/version.BuildDate={{.Date}}'
-      - -X 'github.com/sfarosu/testergit/cmd/version.GitShortHash={{.ShortCommit}}'
+      - -X 'github.com/sfarosu/{{ .ProjectName }}/cmd/version.BuildDate={{.Date}}'
+      - -X 'github.com/sfarosu/{{ .ProjectName }}/cmd/version.GitShortHash={{.ShortCommit}}'
 
 archives:
   - id: release-archive
@@ -48,7 +48,7 @@ release:
     - release-archive
   github:
     owner: sfarosu
-    name: testergit
+    name: {{ .ProjectName }}
 
 # If running on Debian, make sure `qemu-user-static` package is installed; needed by docker to build against arm64 arch
 dockers:
@@ -57,8 +57,8 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "docker.io/sfarosu/testergit:latest-amd64"
-      - "docker.io/sfarosu/testergit:{{ .Version }}-amd64"
+      - "docker.io/sfarosu/{{ .ProjectName }}:latest-amd64"
+      - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-amd64"
     build_flag_templates:
       - "--pull"
       - "--platform=linux/amd64"
@@ -74,8 +74,8 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "docker.io/sfarosu/testergit:latest-arm64"
-      - "docker.io/sfarosu/testergit:{{ .Version }}-arm64"
+      - "docker.io/sfarosu/{{ .ProjectName }}:latest-arm64"
+      - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-arm64"
     build_flag_templates:
       - "--pull"
       - "--platform=linux/arm64"
@@ -87,9 +87,10 @@ dockers:
       - scripts
 
 docker_manifests:
-- name_template: "docker.io/sfarosu/testergit:{{ .Version }}"
+- name_template: "docker.io/sfarosu/{{ .ProjectName }}:latest"
+  - "docker.io/sfarosu/{{ .ProjectName }}:latest-amd64"
+  - "docker.io/sfarosu/{{ .ProjectName }}:latest-arm64"
+- name_template: "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}"
   image_templates:
-  - "docker.io/sfarosu/testergit:latest-amd64"
-  - "docker.io/sfarosu/testergit:latest-arm64"
-  - "docker.io/sfarosu/testergit:{{ .Version }}-amd64"
-  - "docker.io/sfarosu/testergit:{{ .Version }}-arm64"
+  - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-amd64"
+  - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-arm64"
