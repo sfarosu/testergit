@@ -55,6 +55,7 @@ dockers:
   - dockerfile: Dockerfile
     goos: linux
     goarch: amd64
-    context: .
     image_templates:
       - "docker.io/sfarosu/testergit:{{ .Tag }}"
+    extra_files:
+      - scripts
