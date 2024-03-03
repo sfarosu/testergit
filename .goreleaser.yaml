@@ -1,0 +1,52 @@
+project_name: testergit
+
+dist: ./dist
+
+env:
+  - GO111MODULE=on
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: release-build
+    binary: testergit
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -X 'github.com/sfarosu/testergit/cmd/version.BuildDate={{.Date}}'
+      - -X 'github.com/sfarosu/testergit/cmd/version.GitShortHash={{.ShortCommit}}'
+
+archives:
+  - id: release-archive
+    builds:
+      - release-build
+    format: tar.gz
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "SNAPSHOT-{{ .Version }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+release:
+  ids:
+    - release-archive
+  github:
+    owner: sfarosu
+    name: testergit
