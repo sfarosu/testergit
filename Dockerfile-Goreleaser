@@ -1,6 +1,9 @@
 FROM alpine:3.19
+
+WORKDIR /app
+
 COPY testergit /app/
-COPY scripts/ /app/
+COPY scripts /app/
 
 EXPOSE 8080
 
@@ -8,4 +11,4 @@ ENTRYPOINT [ "/app/scripts/uid_entrypoint.sh" ]
 
 USER 10001
 
-CMD [ "./testergit" ]
+CMD [ "./app/testergit" ]
