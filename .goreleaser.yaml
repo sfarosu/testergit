@@ -52,10 +52,24 @@ release:
     name: testergit
 
 dockers:
-  - dockerfile: Dockerfile
+  - dockerfile: Dockerfile-Goreleaser
+    use: buildx
     goos: linux
     goarch: amd64
     image_templates:
       - "docker.io/sfarosu/testergit:{{ .Tag }}"
+    build_flag_templates:
+      - "--platform=linux/amd64"
+    extra_files:
+      - scripts
+
+  - dockerfile: Dockerfile-Goreleaser
+    use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "docker.io/sfarosu/testergit:{{ .Tag }}"
+    build_flag_templates:
+      - "--platform=linux/arm64"
     extra_files:
       - scripts

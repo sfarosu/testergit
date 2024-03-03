@@ -10,8 +10,8 @@ ENV GO111MODULE=on \
     GOARCH=amd64 \
     CGO_ENABLED=0
 
-# RUN go mod download && \
-#     go build -o testergit -ldflags "-X 'github.com/sfarosu/testergit/cmd/version.BuildDate=$(date '+%Y-%m-%d %H:%M:%S')'-X 'github.com/sfarosu/testergit/cmd/version.GitShortHash=$(git rev-parse --short HEAD)'"
+RUN go mod download && \
+    go build -o testergit -ldflags "-X 'github.com/sfarosu/testergit/cmd/version.BuildDate=$(date '+%Y-%m-%d %H:%M:%S')'-X 'github.com/sfarosu/testergit/cmd/version.GitShortHash=$(git rev-parse --short HEAD)'"
 
 # Run image
 FROM --platform=linux/amd64 alpine:3.19
