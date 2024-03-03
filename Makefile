@@ -7,7 +7,7 @@ DEFAULT_GIT_BRANCH := main
 
 prechecks:
 	@echo "#################################"
-	@echo "##### Running prechecks #####"
+	@echo "####### Running prechecks #######"
 
 	@for tool in $(TOOLS); do \
 		if ! command -v $$tool >/dev/null 2>&1; then \
