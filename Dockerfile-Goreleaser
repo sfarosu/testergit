@@ -3,17 +3,17 @@ FROM alpine:3.19
 WORKDIR /app
 
 COPY testergit /app/
-COPY scripts/uid_entrypoint.sh /app/
+COPY scripts/ /app/scripts
 
 RUN chown -R 10001:root /app && \
     chgrp -R 0 /app && \
     chmod -R g=u /app /etc/passwd && \
-    chmod -R a+x-w /app/uid_entrypoint.sh && \
+    chmod -R a+x-w /app/scripts && \
     chmod a+x-w /app/testergit
 
 EXPOSE 8080
 
-ENTRYPOINT [ "/app/uid_entrypoint.sh" ]
+ENTRYPOINT [ "/app/scripts/uid_entrypoint.sh" ]
 
 USER 10001
 
