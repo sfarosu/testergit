@@ -57,7 +57,7 @@ dockers:
     goarch: amd64
     image_templates:
       - "docker.io/sfarosu/testergit:latest"
-      - "docker.io/sfarosu/testergit:{{ .Tag }}"
+      - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
     build_flag_templates:
       - "--pull"
       - "--platform=linux/amd64"
@@ -74,7 +74,7 @@ dockers:
     goarch: arm64
     image_templates:
       - "docker.io/sfarosu/testergit:latest"
-      - "docker.io/sfarosu/testergit:{{ .Tag }}"
+      - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64v8"
     build_flag_templates:
       - "--pull"
       - "--platform=linux/arm64"
@@ -88,5 +88,5 @@ dockers:
 docker_manifests:
 - name_template: "docker.io/sfarosu/testergit:{{ .Version }}"
   image_templates:
-  - "docker.io/sfarosu/testergit:{{ .Version }}"
-  - "docker.io/sfarosu/testergit:{{ .Version }}"
+  - "docker.io/sfarosu/testergit:{{ .Tag }}-amd64"
+  - "docker.io/sfarosu/testergit:{{ .Tag }}-arm64v8"
