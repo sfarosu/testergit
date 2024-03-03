@@ -89,5 +89,7 @@ dockers:
 docker_manifests:
 - name_template: "docker.io/sfarosu/testergit:{{ .Version }}"
   image_templates:
+  - "docker.io/sfarosu/testergit:latest-amd64"
+  - "docker.io/sfarosu/testergit:latest-arm64"
   - "docker.io/sfarosu/testergit:{{ .Version }}-amd64"
   - "docker.io/sfarosu/testergit:{{ .Version }}-arm64"
