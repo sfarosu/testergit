@@ -1,6 +1,6 @@
 .PHONY: prechecks tests bump2version gitpushtags goreleaser help
 
-BUMP_LEVEL := patch
+BUMP_LEVEL := minor
 TOOLS := make git docker bumpversion go goreleaser
 DOCKER_REPO := docker.io/sfarosu/testergit
 DEFAULT_GIT_BRANCH := main
