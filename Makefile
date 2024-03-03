@@ -107,6 +107,12 @@ gitpushtags:
 goreleaser:
 	@echo "################################"
 	@echo "###### Running goreleaser ######"
+	@if ! goreleaser release; then \
+		echo "goreleaser release failed"; \
+		exit 1; \
+	else \
+		echo "goreleaser release successful"; \
+	fi
 
 all: prechecks tests bump2version gitpushtags goreleaser
 
