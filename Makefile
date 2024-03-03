@@ -11,70 +11,70 @@ prechecks:
 
 	@for tool in $(TOOLS); do \
     	if ! command -v $$tool >/dev/null 2>&1; then \
-        	echo "Verify if [$$tool] is installed ... ERROR, not installed or not in PATH"; \
+			echo "Verify if [$$tool] is installed ... ERROR, not installed or not in PATH"; \
 			exit 1; \
 		else \
-		    echo "Verify if [$$tool] is installed ...  found it in path [$$(command -v $$tool)]"; \
+			echo "Verify if [$$tool] is installed ...  found it in path [$$(command -v $$tool)]"; \
 		fi; \
 	done
 
 	@if [ -z "$$GITHUB_TOKEN" ]; then \
-    	echo "Verify if [GITHUB_TOKEN] env var is set ... ERROR, not found"; \
-    	exit 1; \
+		echo "Verify if [GITHUB_TOKEN] env var is set ... ERROR, not found"; \
+		exit 1; \
 	else \
-    	echo "Verify if [GITHUB_TOKEN] env var is set ... found it"; \
+		echo "Verify if [GITHUB_TOKEN] env var is set ... found it"; \
 	fi
 
 	@response_code=$$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $$GITHUB_TOKEN" https://api.github.com/user); \
 	if [ $$response_code -eq 200 ]; then \
-        echo "Verify if [GITHUB_TOKEN is valid] ... success"; \
+		echo "Verify if [GITHUB_TOKEN is valid] ... success"; \
 	else \
-        echo "Verify if [GITHUB_TOKEN is valid] ... ERROR, token is invalid"; \
-        exit 1; \
+		echo "Verify if [GITHUB_TOKEN is valid] ... ERROR, token is invalid"; \
+		exit 1; \
 	fi
 
 	@if ! goreleaser check >/dev/null 2>&1; then \
-    	echo "Verify if [.goreleaser.yaml] file is valid ... ERROR, not valid"; \
-    	exit 1; \
+		echo "Verify if [.goreleaser.yaml] file is valid ... ERROR, not valid"; \
+		exit 1; \
 	else \
-        echo "Verify if [.goreleaser.yaml file] is valid ... success"; \
+		echo "Verify if [.goreleaser.yaml file] is valid ... success"; \
 	fi
 
 	@if [ -d "dist" ]; then \
-        echo "Verify if [dist] folder exists ... ERROR, it must be deleted before running goreleaser"; \
-        exit 1; \
+		echo "Verify if [dist] folder exists ... ERROR, it must be deleted before running goreleaser"; \
+		exit 1; \
 	else \
 		echo "Verify if [dist] folder exists ... success, does not exist"; \
 	fi
 
 	@if ! docker login $(DOCKER_REPO) >/dev/null 2>&1; then \
-        echo "Verify docker login ... ERROR, docker login failed"; \
-        exit 1; \
+		echo "Verify docker login ... ERROR, docker login failed"; \
+		exit 1; \
 	else \
-        echo "Verify docker login ... docker login successful"; \
+		echo "Verify docker login ... docker login successful"; \
 	fi
 	
 	@if [ $$(git rev-parse --abbrev-ref HEAD) != "master" ]; then \
-        echo "Verify current branch ... ERROR, not on default branch [$(DEFAULT_GIT_BRANCH)]"; \
-        exit 1; \
+		echo "Verify current branch ... ERROR, not on default branch [$(DEFAULT_GIT_BRANCH)]"; \
+		exit 1; \
 	else \
 		echo "Verify current branch ... success, on default branch $(DEFAULT_GIT_BRANCH)"; \
 	fi
 
 	@if [ -n "$$(git status --porcelain)" ]; then \
-        echo "Verify git repo state ... ERROR, repo is in dirty state"; \
-        exit 1; \
+		echo "Verify git repo state ... ERROR, repo is in dirty state"; \
+		exit 1; \
 	else \
-        echo "Verify git repo state ... repository is clean"; \
+		echo "Verify git repo state ... repository is clean"; \
 	fi
 
 tests:
 	@echo "####################################"
 	@echo "######### Running go tests #########"
 	@if ! go test ./... -count=1; then \
-        echo "Go tests failed"; \
-        exit 1; \
-    else \
+		echo "Go tests failed"; \
+		exit 1; \
+	else \
 		echo "All go tests passed successfully"; \
 	fi
 
@@ -82,16 +82,16 @@ bumpversion:
 	@echo "################################"
 	@echo "##### Running bumpversion #####"
 	@if [ -n "$$BUMP_LEVEL" ]; then \
-        echo "Using bump level: $$BUMP_LEVEL"; \
-    else \
-        echo "Using default bump level: $(BUMP_LEVEL)"; \
-    fi; \
+		echo "Using bump level: $$BUMP_LEVEL"; \
+	else \
+		echo "Using default bump level: $(BUMP_LEVEL)"; \
+	fi; \
     @if ! bumpversion $(BUMP_LEVEL); then \
-        echo "Bump version failed"; \
-        exit 1; \
-    else \
-        echo "Bump version successful"; \
-    fi
+		echo "Bump version failed"; \
+		exit 1; \
+	else \
+		echo "Bump version successful"; \
+	fi
 
 gitpushtags:
 	@echo "#################################"
