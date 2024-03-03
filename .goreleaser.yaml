@@ -88,9 +88,10 @@ dockers:
 
 docker_manifests:
 - name_template: "docker.io/sfarosu/{{ .ProjectName }}:latest"
-  - "docker.io/sfarosu/{{ .ProjectName }}:latest-amd64"
-  - "docker.io/sfarosu/{{ .ProjectName }}:latest-arm64"
+  image_templates:
+    - "docker.io/sfarosu/{{ .ProjectName }}:latest-amd64"
+    - "docker.io/sfarosu/{{ .ProjectName }}:latest-arm64"
 - name_template: "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}"
   image_templates:
-  - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-amd64"
-  - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-arm64"
+    - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-amd64"
+    - "docker.io/sfarosu/{{ .ProjectName }}:{{ .Version }}-arm64"
