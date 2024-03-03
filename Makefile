@@ -58,7 +58,7 @@ prechecks:
 		echo "Verify current branch ... ERROR, not on default branch [$(DEFAULT_GIT_BRANCH)]"; \
 		exit 1; \
 	else \
-		echo "Verify current branch ... success, on default branch $(DEFAULT_GIT_BRANCH)"; \
+		echo "Verify current branch ... success, on default branch [$(DEFAULT_GIT_BRANCH)]"; \
 	fi
 
 	@if [ -n "$$(git status --porcelain)" ]; then \
