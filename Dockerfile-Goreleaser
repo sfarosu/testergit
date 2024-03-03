@@ -14,8 +14,4 @@ RUN chown -R 10001:root /app && \
 
 EXPOSE 8080
 
-ENTRYPOINT [ "/app/scripts/uid_entrypoint.sh" ]
-
-USER 10001
-
-CMD [ "./app/testergit" ]
+ENTRYPOINT [ "/app/testergit" ]
