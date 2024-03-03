@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY testergit /app/
 COPY scripts /app/
+COPY scripts/uid_entrypoint.sh /app/scripts/
 
 EXPOSE 8080
 
