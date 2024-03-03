@@ -21,24 +21,24 @@ prechecks:
 	@if [ -z "$$GITHUB_TOKEN" ]; then \
     	echo "Verify if [GITHUB_TOKEN] env var is set ... ERROR, not found"; \
     	exit 1; \
-    else \
+	else \
     	echo "Verify if [GITHUB_TOKEN] env var is set ... found it"; \
-    fi
+	fi
 
 	@response_code=$$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $$GITHUB_TOKEN" https://api.github.com/user); \
-    if [ $$response_code -eq 200 ]; then \
+	if [ $$response_code -eq 200 ]; then \
         echo "Verify if [GITHUB_TOKEN is valid] ... success"; \
-    else \
+	else \
         echo "Verify if [GITHUB_TOKEN is valid] ... ERROR, token is invalid"; \
         exit 1; \
-    fi
+	fi
 
 	@if ! goreleaser check >/dev/null 2>&1; then \
     	echo "Verify if [.goreleaser.yaml] file is valid ... ERROR, not valid"; \
     	exit 1; \
-    else \
+	else \
         echo "Verify if [.goreleaser.yaml file] is valid ... success"; \
-    fi
+	fi
 
 	@if [ -d "dist" ]; then \
         echo "Verify if [dist] folder exists ... ERROR, it must be deleted before running goreleaser"; \
@@ -50,23 +50,23 @@ prechecks:
 	@if ! docker login $(DOCKER_REPO) >/dev/null 2>&1; then \
         echo "Verify docker login ... ERROR, docker login failed"; \
         exit 1; \
-    else \
+	else \
         echo "Verify docker login ... docker login successful"; \
-    fi
+	fi
 	
 	@if [ $$(git rev-parse --abbrev-ref HEAD) != "master" ]; then \
         echo "Verify current branch ... ERROR, not on default branch [$(DEFAULT_GIT_BRANCH)]"; \
         exit 1; \
 	else \
 		echo "Verify current branch ... success, on default branch $(DEFAULT_GIT_BRANCH)"; \
-    fi
+	fi
 
 	@if [ -n "$$(git status --porcelain)" ]; then \
         echo "Verify git repo state ... ERROR, repo is in dirty state"; \
         exit 1; \
-    else \
+	else \
         echo "Verify git repo state ... repository is clean"; \
-    fi
+	fi
 
 tests:
 	@echo "####################################"
